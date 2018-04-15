@@ -1,0 +1,32 @@
+﻿@model Folio1_App_Test.Models.tbl_Students
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>tbl_Students</legend>
+    
+    <div class="display-label">
+         Class Name    : @Html.DisplayFor(model => model.tbl_Classes.Name)
+    </div>
+     <div class="display-label">
+         Student Name  :  @Html.DisplayFor(model => model.Name)
+    </div>
+    <div class="display-label">
+         Age           : @Html.DisplayFor(model => model.Age)
+    </div>
+    <div class="display-label">
+         GPA           :  @Html.DisplayFor(model => model.GPA)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="StudentDelete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

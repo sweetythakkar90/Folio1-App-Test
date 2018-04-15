@@ -1,0 +1,141 @@
+﻿@model Folio1_App_Test.Models.ClassesData
+@{
+    ViewBag.Title = "Classes";
+}
+<head>
+   
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
+</head>
+<script>
+    $(document).ready(function () {
+        $.noConflict();
+        $('#myTable').DataTable();
+        $('#StudentTable').DataTable();
+        
+    });
+</script>
+<style>
+    thead {
+        text-align:left;
+    }
+   .sorting_1{
+        background: none !important;
+    }
+    .selectedrow {
+        background-color:#d2e2f9 !important;
+    }
+     .bright {
+        background-color:#b8fbbd !important;
+        border:1px solid #000;
+    }
+    .bright td {
+        
+        border-bottom:1px solid #000;
+    }
+</style>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New Class", "Create")
+</p>
+<table id="myTable" class="display" >
+    <thead>
+        <tr>
+        <th>Class Name</th>
+        <th>Location</th>
+        <th>Teacher Name</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var item in Model.Cls)
+    {
+        string selectedRow = "";
+        if (item.Id == ViewBag.Id)
+        {
+            selectedRow = "selectedrow";
+        }
+        <tr class="@selectedRow" valign="top">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeacherName)
+            </td>
+            <td>
+                @Html.ActionLink("Select", "Index", new { id = item.Id }) | 
+             
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+        </tbody>
+</table>
+
+@if (Model.Stud != null)
+{ 
+    <h3>Students in the class</h3> 
+    <p>
+        @Html.ActionLink("Create New Student", "StudentCreate", new { id = ViewBag.Id })
+    </p>
+    <table id="StudentTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Class Name</th>
+            <th>GPA</th>
+            <th></th>
+
+        </tr>
+            </thead>
+        <tbody>
+        @foreach (var item in Model.Stud)
+        {
+            string selectedRow = "";
+            if (item.Id == ViewBag.Id)
+            {
+                selectedRow = "selectedrow";
+            }
+            string bright = "";
+            if (item.GPA >= 3.2)
+            {
+                bright = "bright";
+            }
+            <tr class="@selectedRow @bright">
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Age
+                </td>
+                <td>
+                    @item.tbl_Classes.Name
+                </td>
+                <td>
+                    @item.GPA
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "StudentEdit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "StudentDetails", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "StudentDelete", new { id = item.Id })
+                </td>
+            </tr> 
+        }
+            </tbody>
+
+    </table> 
+}

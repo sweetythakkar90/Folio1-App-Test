@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FolioAppTestModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="FolioAppTestModelStoreContainer">
+          <EntitySet Name="tbl_Classes" EntityType="FolioAppTestModel.Store.tbl_Classes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_Students" EntityType="FolioAppTestModel.Store.tbl_Students" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Students_Class" Association="FolioAppTestModel.Store.FK_Students_Class">
+            <End Role="tbl_Classes" EntitySet="tbl_Classes" />
+            <End Role="tbl_Students" EntitySet="tbl_Students" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbl_Classes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Location" Type="varchar" MaxLength="250" />
+          <Property Name="TeacherName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_Students">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClassId" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Age" Type="int" />
+          <Property Name="GPA" Type="float" />
+        </EntityType>
+        <Association Name="FK_Students_Class">
+          <End Role="tbl_Classes" Type="FolioAppTestModel.Store.tbl_Classes" Multiplicity="0..1" />
+          <End Role="tbl_Students" Type="FolioAppTestModel.Store.tbl_Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Classes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_Students">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FolioAppTestModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FolioAppTestEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Classes" EntityType="FolioAppTestModel.tbl_Classes" />
+          <EntitySet Name="tbl_Students" EntityType="FolioAppTestModel.tbl_Students" />
+          <AssociationSet Name="FK_Students_Class" Association="FolioAppTestModel.FK_Students_Class">
+            <End Role="tbl_Classes" EntitySet="tbl_Classes" />
+            <End Role="tbl_Students" EntitySet="tbl_Students" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbl_Classes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Location" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="TeacherName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="tbl_Students" Relationship="FolioAppTestModel.FK_Students_Class" FromRole="tbl_Classes" ToRole="tbl_Students" />
+        </EntityType>
+        <EntityType Name="tbl_Students">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="GPA" Type="Double" />
+          <NavigationProperty Name="tbl_Classes" Relationship="FolioAppTestModel.FK_Students_Class" FromRole="tbl_Students" ToRole="tbl_Classes" />
+        </EntityType>
+        <Association Name="FK_Students_Class">
+          <End Role="tbl_Classes" Type="FolioAppTestModel.tbl_Classes" Multiplicity="0..1" />
+          <End Role="tbl_Students" Type="FolioAppTestModel.tbl_Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Classes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_Students">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FolioAppTestModelStoreContainer" CdmEntityContainer="FolioAppTestEntities">
+          <EntitySetMapping Name="tbl_Classes">
+            <EntityTypeMapping TypeName="FolioAppTestModel.tbl_Classes">
+              <MappingFragment StoreEntitySet="tbl_Classes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Students">
+            <EntityTypeMapping TypeName="FolioAppTestModel.tbl_Students">
+              <MappingFragment StoreEntitySet="tbl_Students">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="GPA" ColumnName="GPA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

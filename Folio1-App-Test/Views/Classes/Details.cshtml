@@ -1,0 +1,27 @@
+﻿@model Folio1_App_Test.Models.tbl_Classes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>tbl_Classes</legend>
+
+    <div class="display-label">
+         Class Name     : @Html.DisplayFor(model => model.Name)
+    </div>
+ 
+    <div class="display-label">
+         Location       : @Html.DisplayFor(model => model.Location)
+    </div>
+    <div class="display-label">
+         Teacher Name   : @Html.DisplayFor(model => model.TeacherName)
+    
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

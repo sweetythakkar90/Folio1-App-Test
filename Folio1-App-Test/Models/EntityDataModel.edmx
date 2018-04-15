@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FolioAppTestModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FolioAppTestModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="FolioAppTestModelStoreContainer">
           <EntitySet Name="tbl_Classes" EntityType="FolioAppTestModel.Store.tbl_Classes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_Students" EntityType="FolioAppTestModel.Store.tbl_Students" store:Type="Tables" Schema="dbo" />
@@ -29,6 +29,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ClassId" Type="int" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="SurName" Type="varchar" MaxLength="50" />
           <Property Name="Age" Type="int" />
           <Property Name="GPA" Type="float" />
         </EntityType>
@@ -44,8 +45,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FolioAppTestModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -53,34 +53,35 @@
           <EntitySet Name="tbl_Classes" EntityType="FolioAppTestModel.tbl_Classes" />
           <EntitySet Name="tbl_Students" EntityType="FolioAppTestModel.tbl_Students" />
           <AssociationSet Name="FK_Students_Class" Association="FolioAppTestModel.FK_Students_Class">
-            <End Role="tbl_Classes" EntitySet="tbl_Classes" />
-            <End Role="tbl_Students" EntitySet="tbl_Students" />
+            <End EntitySet="tbl_Classes" Role="tbl_Classes" />
+            <End EntitySet="tbl_Students" Role="tbl_Students" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tbl_Classes">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Location" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
-          <Property Name="TeacherName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Name" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Location" MaxLength="250" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="TeacherName" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
           <NavigationProperty Name="tbl_Students" Relationship="FolioAppTestModel.FK_Students_Class" FromRole="tbl_Classes" ToRole="tbl_Students" />
         </EntityType>
         <EntityType Name="tbl_Students">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
           <Property Name="ClassId" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Name" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="Age" Type="Int32" />
           <Property Name="GPA" Type="Double" />
           <NavigationProperty Name="tbl_Classes" Relationship="FolioAppTestModel.FK_Students_Class" FromRole="tbl_Students" ToRole="tbl_Classes" />
+          <Property Type="String" Name="SurName" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Students_Class">
-          <End Role="tbl_Classes" Type="FolioAppTestModel.tbl_Classes" Multiplicity="0..1" />
-          <End Role="tbl_Students" Type="FolioAppTestModel.tbl_Students" Multiplicity="*" />
+          <End Type="FolioAppTestModel.tbl_Classes" Multiplicity="0..1" Role="tbl_Classes" />
+          <End Type="FolioAppTestModel.tbl_Students" Multiplicity="*" Role="tbl_Students" />
           <ReferentialConstraint>
             <Principal Role="tbl_Classes">
               <PropertyRef Name="Id" />
@@ -109,6 +110,7 @@
           <EntitySetMapping Name="tbl_Students">
             <EntityTypeMapping TypeName="FolioAppTestModel.tbl_Students">
               <MappingFragment StoreEntitySet="tbl_Students">
+                <ScalarProperty Name="SurName" ColumnName="SurName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ClassId" ColumnName="ClassId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

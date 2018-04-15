@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="7ba758feea614c84a2158382b17fe21b" Name="Diagram1">
-        <EntityTypeShape EntityType="FolioAppTestModel.tbl_Classes" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="FolioAppTestModel.tbl_Students" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="FolioAppTestModel.FK_Students_Class" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FolioAppTestModel.tbl_Classes" PointX="0.75" PointY="1" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FolioAppTestModel.tbl_Students" PointX="3" PointY="0.875" Width="1.5" IsExpanded="true" />
+        <AssociationConnector ManuallyRouted="false" Association="FolioAppTestModel.FK_Students_Class" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

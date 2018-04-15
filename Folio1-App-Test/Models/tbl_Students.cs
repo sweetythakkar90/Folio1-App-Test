@@ -19,6 +19,8 @@ namespace Folio1_App_Test.Models
         public string Name { get; set; }
         public Nullable<int> Age { get; set; }
         public Nullable<double> GPA { get; set; }
+        
+        public string SurName { get; set; }
     
         public virtual tbl_Classes tbl_Classes { get; set; }
     }
